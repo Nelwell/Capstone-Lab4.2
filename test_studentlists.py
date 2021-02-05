@@ -40,7 +40,7 @@ class TestStudentLists(TestCase):
         test_class.remove_student('Test Student')
         self.assertNotIn('Test Student', test_class.class_list)
 
-    ## TODO write a test that adds some example students,
+    # test that adds some example students,
     # then removes a student not in the list, and asserts a StudentError is raised
     def test_remove_student_not_in_the_list_raises_student_error(self):
         # Arrange
@@ -118,20 +118,59 @@ class TestStudentLists(TestCase):
         # the method call returns None
         self.assertIsNotNone(test_class.index_of_student('Harry'))
 
-    ## TODO write a test for index_of_student when the class_list list is empty.
+    # test for index_of_student when the class_list list is empty.
     # Assert index_of_student returns None for a student if the list is empty. 
     # use assertIsNone.
+    def test_index_of_student_student_list_empty(self):
+        # empty class, no students added
+        # Arrange
+        test_class = ClassList(3)
 
-    ## TODO write another test for index_of_student. In the case when the 
+        # Assert/Action
+        self.assertIsNone(test_class.index_of_student('Carl'))  # expects None value for list
+
+    # test for index_of_student. In the case when the
     # class_list is not empty but has some students.
     # assert that searching for a student name that is not in the list, returns None.
+    def test_index_of_student_student_not_present(self):
+        test_class = ClassList(6)
+        test_class.add_student('Cloud')
+        test_class.add_student('Squall')
+        test_class.add_student('Zell')
 
-    ## TODO write a test for your new is_class_full method when the class is full.
+        self.assertEqual(1, test_class.index_of_student('Cloud'))
+        self.assertEqual(2, test_class.index_of_student('Squall'))
+        self.assertEqual(3, test_class.index_of_student('Zell'))
+
+        # will pass if the method call returns None
+        self.assertIsNone(test_class.index_of_student('Cid'))
+
+    # test for your new is_class_full method when the class is full.
     # use assertTrue.
+    def test_is_class_full_class_is_full(self):
+        # fill up class with students
+        test_class = ClassList(3)
+        test_class.add_student('Cloud')
+        test_class.add_student('Squall')
+        test_class.add_student('Zell')
+
+        # will pass if class is full
+        self.assertTrue(test_class.is_class_full())
 
     ## TODO write a test for your new is_class_full method for when is empty, 
     # and when it is not full. Use assertFalse.
+    def test_is_class_empty_or_not_full(self):
+        # empty class
+        empty_test_class = ClassList(0)
+        # add students
+        test_class = ClassList(4)
+        test_class.add_student('Cloud')
+        test_class.add_student('Squall')
+        test_class.add_student('Zell')
 
+        # will pass if class is not full or is empty
+        self.assertFalse(empty_test_class.is_class_full())
+        self.assertFalse(test_class.is_class_full())
 
 if __name__ == '__main__':
     # allows right-click running of test
