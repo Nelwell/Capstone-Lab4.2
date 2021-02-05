@@ -157,11 +157,11 @@ class TestStudentLists(TestCase):
         # will pass if class is full
         self.assertTrue(test_class.is_class_full())
 
-    ## TODO write a test for your new is_class_full method for when is empty, 
+    # test for your new is_class_full method for when is empty,
     # and when it is not full. Use assertFalse.
     def test_is_class_empty_or_not_full(self):
         # empty class
-        empty_test_class = ClassList(0)
+        empty_test_class = ClassList(3)
         # add students
         test_class = ClassList(4)
         test_class.add_student('Cloud')
@@ -171,6 +171,14 @@ class TestStudentLists(TestCase):
         # will pass if class is not full or is empty
         self.assertFalse(empty_test_class.is_class_full())
         self.assertFalse(test_class.is_class_full())
+
+    def test_max_students_is_zero_or_negative(self):
+        # checks if StudentError is raised for zero or negative max_students value
+        with self.assertRaises(StudentError):
+            ClassList(0)
+        with self.assertRaises(StudentError):
+            ClassList(-3)
+
 
 if __name__ == '__main__':
     # allows right-click running of test
